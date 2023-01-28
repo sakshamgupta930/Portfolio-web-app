@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:portfolio/components/MyBuildAnimated_text.dart';
+import 'package:portfolio/components/my_buildanimated_text.dart';
+import 'package:portfolio/responsive.dart';
 import 'package:portfolio/screens/constants.dart';
 
 class HomeBanner extends StatelessWidget {
@@ -22,7 +23,7 @@ class HomeBanner extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           Container(
-            color: darkColor.withOpacity(0.66),
+            color: Colors.black.withOpacity(0.60),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -34,58 +35,73 @@ class HomeBanner extends StatelessWidget {
               children: [
                 Text(
                   "I'm Saksham Gupta",
-                  style: Theme.of(context).textTheme.headline3!.copyWith(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                  style: Responsive.isDesktop(context)
+                      ? Theme.of(context).textTheme.headline3!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )
+                      : Theme.of(context).textTheme.headline5!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                 ),
                 Text(
-                  "a student and a mobile app developer specialising in development on the Flutter framework.",
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                      fontWeight: FontWeight.bold, color: Colors.white),
+                  "a student and a application developer specialising in \ndevelopment on the Flutter framework.",
+                  style: Responsive.isDesktop(context)
+                      ? const TextStyle(
+                          fontSize: 25,
+                          color: Colors.white,
+                        )
+                      : const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
                 ),
-                SizedBox(
-                  height: defaultPadding,
-                ),
-                MyBuildAnimatedText(),
-                SizedBox(
-                  height: defaultPadding / 2,
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: defaultPadding / 2),
-                  // color: Color(0xFF24242E),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
+                if (!Responsive.isMobileLarge(context))
+                  const SizedBox(height: defaultPadding / 2),
+                const MyBuildAnimatedText(),
+                const SizedBox(height: defaultPadding),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (!Responsive.isMobileLarge(context))
+                      ElevatedButton(
                         onPressed: () {},
-                        icon: SvgPicture.asset("assets/icons/linkedin.svg"),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding * 2,
+                            vertical: defaultPadding,
+                          ),
+                          backgroundColor: primaryColor,
+                        ),
+                        child: const Text(
+                          "EXPLORE NOW",
+                          style: TextStyle(color: darkColor),
+                        ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset("assets/icons/github.svg"),
+                    Container(
+                      margin: const EdgeInsets.only(top: defaultPadding / 2),
+                      // color: Color(0xFF24242E),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon:
+                                SvgPicture.asset("assets/icons/linkedin1.svg"),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: SvgPicture.asset("assets/icons/github1.svg"),
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: SvgPicture.asset("assets/icons/twitter1.svg"),
+                          ),
+                        ],
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset("assets/icons/twitter.svg"),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: defaultPadding,
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: defaultPadding * 2,
-                      vertical: defaultPadding,
                     ),
-                    backgroundColor: primaryColor,
-                  ),
-                  child: Text(
-                    "EXPLORE NOW",
-                    style: TextStyle(color: darkColor),
-                  ),
+                  ],
                 ),
               ],
             ),

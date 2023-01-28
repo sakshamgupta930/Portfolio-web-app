@@ -14,35 +14,35 @@ class MyBuildAnimatedText extends StatelessWidget {
       style: Theme.of(context).textTheme.subtitle1!,
       child: Row(
         children: [
-          FlutterCodedText(),
-          SizedBox(width: defaultPadding / 2),
-          Text("I build "),
+          const FlutterCodedText(),
+          const SizedBox(width: defaultPadding / 2),
+          const Text("I build "),
           AnimatedTextKit(
             animatedTexts: [
               TyperAnimatedText(
                 "responsive web and mobile app.",
-                speed: Duration(milliseconds: 60),
+                speed: const Duration(milliseconds: 60),
               ),
               TyperAnimatedText(
                 "complete food recipe app with rest api.",
-                speed: Duration(milliseconds: 60),
+                speed: const Duration(milliseconds: 60),
               ),
               TyperAnimatedText(
                 "stop watch and Calculator using flutter.",
-                speed: Duration(milliseconds: 60),
+                speed: const Duration(milliseconds: 60),
               ),
               TyperAnimatedText(
                 "complete weather app with rest api.",
-                speed: Duration(milliseconds: 60),
+                speed: const Duration(milliseconds: 60),
               ),
               TyperAnimatedText(
                 "complete instagram clone with backend.",
-                speed: Duration(milliseconds: 60),
+                speed: const Duration(milliseconds: 60),
               ),
             ],
           ),
-          SizedBox(width: defaultPadding / 2),
-          FlutterCodedText(),
+          const SizedBox(width: defaultPadding / 2),
+          const FlutterCodedText(),
         ],
       ),
     );
