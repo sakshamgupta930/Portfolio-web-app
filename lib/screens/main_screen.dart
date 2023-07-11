@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:portfolio/components/highlight_info.dart';
 import 'package:portfolio/components/home_banner.dart';
 import 'package:portfolio/components/my_projects.dart';
@@ -19,6 +20,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  Future<void> _handleRefresh() async {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,16 +56,26 @@ class _MainScreenState extends State<MainScreen> {
               ),
               Expanded(
                 flex: 7,
-                child: SingleChildScrollView(
-                  child: Container(
-                    padding: const EdgeInsets.only(right: defaultPadding),
-                    child: const Column(
-                      children: [
-                        HomeBanner(),
-                        HighLightInfo(),
-                        MyProjects(),
-                        RecommendBox(),
-                      ],
+                child: LiquidPullToRefresh(
+                  onRefresh: _handleRefresh,
+                  height: 150,
+                  color: secondaryColor,
+                  animSpeedFactor: 3,
+                  showChildOpacityTransition: false,
+                  backgroundColor: Colors.white,
+                  // springAnimationDurationInMilliseconds: 1000,
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Container(
+                      padding: const EdgeInsets.only(right: defaultPadding),
+                      child: const Column(
+                        children: [
+                          HomeBanner(),
+                          HighLightInfo(),
+                          MyProjects(),
+                          RecommendBox(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
