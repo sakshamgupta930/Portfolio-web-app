@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/components/project_card.dart';
 import 'package:portfolio/models/Project.dart';
+import 'package:portfolio/responsive.dart';
 import 'package:portfolio/screens/constants.dart';
 
 class MyProjects extends StatefulWidget {
@@ -24,23 +25,53 @@ class _MyProjectsState extends State<MyProjects> {
           ),
         ),
         const SizedBox(height: defaultPadding),
-        GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: demo_projects.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 1.3,
-            crossAxisSpacing: defaultPadding,
-            mainAxisSpacing: defaultPadding,
+        const Responsive(
+          mobile: ProjectsGridView(
+            crossAxisCount: 1,
+            childAspectRatio: 1.5,
           ),
-          itemBuilder: (BuildContext context, int index) {
-            return ProjectCard(
-              project: demo_projects[index],
-            );
-          },
-        ),
+          mobileLarge: ProjectsGridView(
+            crossAxisCount: 2,
+            childAspectRatio: 1,
+          ),
+          desktop: ProjectsGridView(),
+          tablet: ProjectsGridView(
+            childAspectRatio: 1,
+          ),
+        )
       ],
+    );
+  }
+}
+
+class ProjectsGridView extends StatelessWidget {
+  const ProjectsGridView({
+    Key? key,
+    this.crossAxisCount = 3,
+    this.childAspectRatio = 1.2,
+  }) : super(key: key);
+
+  final int crossAxisCount;
+
+  final double childAspectRatio;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: demo_projects.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        childAspectRatio: childAspectRatio,
+        crossAxisSpacing: defaultPadding,
+        mainAxisSpacing: defaultPadding,
+      ),
+      itemBuilder: (BuildContext context, int index) {
+        return ProjectCard(
+          project: demo_projects[index],
+        );
+      },
     );
   }
 }

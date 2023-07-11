@@ -31,11 +31,11 @@ class _MainScreenState extends State<MainScreen> {
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   },
-                  icon: Icon(Icons.menu),
+                  icon: const Icon(Icons.menu),
                 ),
               ),
             ),
-      drawer: SideMenu(),
+      drawer: const SideMenu(),
       body: Center(
         child: Container(
           width: double.infinity,
@@ -54,13 +54,16 @@ class _MainScreenState extends State<MainScreen> {
               Expanded(
                 flex: 7,
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const HomeBanner(),
-                      const HighLightInfo(),
-                      const MyProjects(),
-                      const RecommendBox(),
-                    ],
+                  child: Container(
+                    padding: const EdgeInsets.only(right: defaultPadding),
+                    child: const Column(
+                      children: [
+                        HomeBanner(),
+                        HighLightInfo(),
+                        MyProjects(),
+                        RecommendBox(),
+                      ],
+                    ),
                   ),
                 ),
               ),

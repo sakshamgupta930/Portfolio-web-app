@@ -3,16 +3,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:portfolio/components/my_buildanimated_text.dart';
 import 'package:portfolio/responsive.dart';
 import 'package:portfolio/screens/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class HomeBanner extends StatelessWidget {
+class HomeBanner extends StatefulWidget {
   const HomeBanner({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<HomeBanner> createState() => _HomeBannerState();
+}
+
+class _HomeBannerState extends State<HomeBanner> {
+  double aspectRatio = 0;
+  @override
   Widget build(BuildContext context) {
+    Responsive.isMobile(context) ? aspectRatio = 1.5 : aspectRatio = 3;
     return AspectRatio(
-      aspectRatio: 3,
+      aspectRatio: aspectRatio,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -45,22 +53,25 @@ class HomeBanner extends StatelessWidget {
                             color: Colors.white,
                           ),
                 ),
-                Text(
-                  "a student and a application developer specialising in \ndevelopment on the Flutter framework.",
-                  style: Responsive.isDesktop(context)
-                      ? const TextStyle(
-                          fontSize: 25,
-                          color: Colors.white,
-                        )
-                      : const TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                        ),
-                ),
                 if (!Responsive.isMobileLarge(context))
-                  const SizedBox(height: defaultPadding / 2),
+                  Text(
+                    "A student and a application developer specialising in \ndevelopment on the Flutter framework.",
+                    style: Responsive.isDesktop(context)
+                        ? const TextStyle(
+                            fontSize: 25,
+                            color: Colors.white,
+                          )
+                        : const TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                  ),
+                if (!Responsive.isMobile(context))
+                  const SizedBox(height: defaultPadding),
                 const MyBuildAnimatedText(),
-                const SizedBox(height: defaultPadding),
+                Responsive.isMobileLarge(context)
+                    ? const SizedBox(height: defaultPadding / 4)
+                    : const SizedBox(height: defaultPadding),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -79,27 +90,30 @@ class HomeBanner extends StatelessWidget {
                           style: TextStyle(color: darkColor),
                         ),
                       ),
-                    Container(
-                      margin: const EdgeInsets.only(top: defaultPadding / 2),
-                      // color: Color(0xFF24242E),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon:
-                                SvgPicture.asset("assets/icons/linkedin1.svg"),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: SvgPicture.asset("assets/icons/github1.svg"),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: SvgPicture.asset("assets/icons/twitter1.svg"),
-                          ),
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          onPressed: () => launch(
+                              'https://www.linkedin.com/in/saksham-gupta-496560234'),
+                          icon: SvgPicture.asset("assets/icons/linkedin1.svg"),
+                        ),
+                        IconButton(
+                          onPressed: () =>
+                              launch('https://github.com/sakshamgupta930'),
+                          icon: SvgPicture.asset("assets/icons/github1.svg"),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Dont have twitter account"),
+                              ),
+                            );
+                          },
+                          icon: SvgPicture.asset("assets/icons/twitter1.svg"),
+                        ),
+                      ],
                     ),
                   ],
                 ),
